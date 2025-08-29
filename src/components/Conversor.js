@@ -1,49 +1,17 @@
-import { Button, Select } from "semantic-ui-react";
-import { useState } from "react";
+import { Button, Message, Select } from "semantic-ui-react";
 
 import "./Conversor.css";
 
-const Conversor = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
-  const onFromChange = (e, data) => {
-    setFrom(data.value);
-    setData(null);
-    setError(null);
-  };
-
-  const onToChange = (e, data) => {
-    setTo(data.value);
-    setData(null);
-    setError(null);
-  };
-
-  const onVider = () => {
-    setFrom("");
-    setTo("");
-    setData(null);
-    setError(null);
-  };
-
-  const onConvertir = async (from, to) => {
-    if (from && to) {
-      try {
-        let res = await fetch(
-          `https://api.coingecko.com/api/v3/simple/price?ids=${from}&vs_currencies=${to}`
-        );
-        let data = await res.json();
-        setData(data[from][to]);
-      } catch (e) {
-        setError("Une erreur est survenue");
-      }
-    } else {
-      setError("Merci de choisir les deux champs");
-    }
-  };
-
+const Conversor = ({
+  from,
+  to,
+  data,
+  error,
+  onFromChange,
+  onToChange,
+  onVider,
+  onConvertir,
+}) => {
   const optionsFor = [
     { value: "bitcoin", key: "btc", text: "Bitcoin" },
     { value: "lithium", key: "lithium", text: "Lithium" },
@@ -81,11 +49,13 @@ const Conversor = () => {
       </div>
       <div className="result">
         {data ? (
-          <h3>
-            1 {from} = {data} {to}
-          </h3>
+          <Message success>
+            <p>
+              1 {from} = {data} {to}
+            </p>
+          </Message>
         ) : error ? (
-          <h3>{error}</h3>
+          <Message error>{error}</Message>
         ) : undefined}
       </div>
     </div>
