@@ -1,0 +1,21 @@
+.conversor-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    gap: 2rem;
+    background-color: lightgreen;
+    padding: 2rem;
+    height: 250px;
+    width: fit-content;
+}
+
+.selection {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.select {
+    width: 250px;
+}
